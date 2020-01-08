@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            width:200px;
+            height:200px;
+            background:green;
+            float:left;
+        }
+        #d2{
+            width:300px;
+            background:orange;
+        }
+        #box{
+            margin-top:50px;
+            width:350px;
+            height:90px;
+            border:1px solid #000;
+        }
+        #box img{
+            width:84px;
+            height:84px;
+            float:left;
+            margin-right:20px;
+        }
+        #box p{
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="d1"></div>
+    <div id="d2">
+        start->浮动元素不占位，导致后面正常元素向前占位
+               浮动元素不占位，导致后面正常元素向前占位
+               浮动元素不占位，导致后面正常元素向前占位
+               浮动元素不占位，导致后面正常元素向前占位
+    </div>
+    <div id="box">
+        <img src="timg.jpg" alt="">
+        <input type="text">
+        <p>car，拉风</p>
+        <p>颜色：black</p>
+        <p>规格：xxx</p>
+    </div>
+
+</body>
+</html>

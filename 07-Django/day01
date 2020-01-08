@@ -1,0 +1,95 @@
+使用Django框架
+1.创建练习项目
+指令 #django-admin startproject 项目名
+Django-admin startproject mywebsite1
+2运行
+cd mywebsite1
+python3 manage.py runserver
+指定端口
+python3 manage.py runserver 5000 指定设备有5000端口
+指定ip+端口
+python3 manage.py runserver 176.23.0.11
+指定ip需要修改settings.py
+ALLOWED_HOSTS = [] # 空列表只允许127.0.0.1访问
+ALLOWED_HOSTS = ['*'] # 允许任意访问 仅限调试使用
+
+MTV框架模式
+MVC
+MTV
+Model 模型 负责与数据库交互
+Templates 模板 负责呈现网页内容
+View 视图 负责接收请求 获取数据 返回结果
+
+视图view
+请求与响应
+
+URL介绍
+http://www.tmooc.cn/live
+
+路由
+URL中不看域名的部分
+/user/user_info
+/cart/cart_list
+
+urls.py
+urlpatterns是一个路由的列表，保存url()实例
+
+url(r'^admin/', admin.site.urls),
+url(regex,views,kwargs=None,name=None)
+1.regex:字符串类型 匹配请求的路径 通常为正则表达式
+2.views:表示路径对应的视图函数
+3.kwargs:向视图中传递参数
+4.name:为地址取一个别名
+
+试用后台管理系统
+将Django准备的数据库迁移本地数据库
+python3 manage.py migrate
+python3 manage.py createsuperuser
+  admin
+  shibw@tedu.cn
+  1234.com
+  1234.com
+
+在项目中
+from django.http import HttpResponse
+
+
+def home(request):
+    return HttpResponse("这是我的第一个首页")
+
+带参数的视图函数
+
+
+正则表达式的命名分组(?P<name>xxx)
+http://127.0.0.1:8000/students/shibw/20
+显示学生姓名+年龄
+
+url(r'^students/(?P<name>\w+)/(?P<age>\d{1,2})', views.students)
+
+def students(request, name, age):
+    return HttpResponse("学生姓名：" + name + " 年龄" + age)
+
+通过url()传参
+url(regex,views,kwargs,name)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

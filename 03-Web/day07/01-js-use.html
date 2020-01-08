@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js</title>
+    <script type="text/javascript">
+        // 单行注释
+        /*多行*/
+        console.log("head中的脚本");
+        // prompt("请输入");
+        document.write("哈哈");
+    </script>
+</head>
+<body>
+    <script>
+        console.log("body开头");
+        document.write("呵呵");
+    </script>
+    <script src="index.js"></script>
+
+<!--    <h1 onclick="alert('h1被点击');">点击</h1>-->
+        <h1 onclick="document.write('嘿嘿');">点击</h1>
+    <div onclick="console.log('控制台输出');">控制台</div>
+
+    <script>
+        console.log("body末尾");
+        // alert("-------");
+        document.write("<h2 id='d1'>动态添加</h2>");
+    </script>
+</body>
+</html>

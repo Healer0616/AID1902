@@ -1,0 +1,387 @@
+/*1.顶部*/
+#top {
+    height: 50px;
+}
+
+/*左中右浮动*/
+#logo {
+    float: left;
+    width: 168px;
+    /*设置圆角*/
+    border-radius: 10px;
+}
+
+.search {
+    float: left;
+    /*设置居左的外边距*/
+    margin-left: 115px;
+    /*父元素相对定位*/
+    position: relative;
+}
+
+.search input {
+    width: 320px;
+    height: 36px;
+    /*设置边框*/
+    border: 1px solid #999;
+    background: #f5f5f5;
+    /*设置居左内边距*/
+    padding-left: 10px;
+    /*设置居右内边距*/
+    padding-right: 50px;
+    /*设置圆角*/
+    border-radius: 19px;
+}
+
+.search img {
+    width: 40px;
+    height: 40px;
+    /*子元素绝对定位*/
+    position: absolute;
+    /*距离参照物的右侧和顶部为0*/
+    right: 0;
+    top: 0;
+}
+
+#top ul {
+    float: right;
+    /*设置向上外边距*/
+    margin-top: 17px;
+}
+
+#top ul li {
+    float: left;
+    /*margin:10px;*/
+    /*右边框线*/
+    border-right: 1px solid #999;
+    /*固定元素的高度，统一边框的高度*/
+    height: 15px;
+    /*内边距上下为0，左右为15*/
+    padding: 0 15px;
+}
+
+#top ul li img {
+    /*设置外边距*/
+    margin-top: -3px;
+}
+
+/*找到最后一个li元素*/
+#top ul li:last-child {
+    /*去掉外边框（线）*/
+    border: none;
+}
+
+/*2.导航*/
+#nav {
+    margin: 15px 0;
+}
+
+#nav a {
+    font-size: 16px;
+    /*设置右边外边距*/
+    margin-right: 40px;
+}
+
+/*3.轮播图*/
+#banner {
+    height: 400px;
+    /*父元素相对定位*/
+    position: relative;
+}
+
+#banner img {
+    width: 1000px;
+    height: 400px;
+}
+
+#banner ul {
+    width: 70px;
+    /*子元素绝对定位*/
+    position: absolute;
+    /*居底部*/
+    bottom: 15px;
+    /*居左一半*/
+    left: 50%;
+    /*回来自身的一般*/
+    margin-left: -35px;
+}
+
+#banner li {
+    /*⭕️横向排列*/
+    float: left;
+    width: 10px;
+    height: 10px;
+    /*正方形变圆形*/
+    border-radius: 50%;
+    background: #fff;
+    margin-right: 5px;
+}
+
+#banner ul li:first-child {
+    background: red;
+}
+
+#banner ul li:last-child {
+    /*去掉最后一个li元素的边距*/
+    margin: 0;
+}
+
+#banner a {
+    position: absolute;
+    width: 35px;
+    height: 70px;
+    border-radius: 5px;
+    /*重复值     居中*/
+    background: rgba(0, 0, 0, .1) url("../images/index/arrow-left.png") no-repeat center;
+    /*参照物的一半*/
+    top: 50%;
+    margin-top: -35px;
+}
+
+#banner a.left {
+    left: 5px;
+}
+
+#banner a.right {
+    right: 5px;
+    background: rgba(0, 0, 0, .1) url("../images/index/arrow-right.png") no-repeat center;
+}
+
+/*4.推荐*/
+#command {
+    height: 240px;
+    margin: 10px 0;
+}
+
+#command div {
+    width: 326px;
+    height: 240px;
+    float: left;
+    margin-right: 11px;
+}
+
+#command div:last-child {
+    margin: 0;
+}
+
+#command .command1 {
+    background: url("../images/index/sbanner1.jpg")
+}
+
+#command .command1 img {
+    float: right;
+    width: 130px;
+    margin-top: 50px;
+    margin-right: 40px;
+}
+
+#command .command2 {
+    background: url("../images/index/sbanner2.jpg")
+}
+
+#command .command2 img {
+    width: 230px;
+    margin-top: 40px;
+    margin-left: 40px;
+}
+
+#command .command3 {
+    background: url("../images/index/sbanner3.jpg")
+}
+
+#command .command3 img {
+    width: 160px;
+    margin-top: 40px;
+    margin-left: 40px;
+}
+
+/*5.横幅*/
+#wrapper {
+    height: 370px;
+    background: url("../images/index/index_guild.jpg");
+    background-size: 100%;
+}
+
+/*6.main*/
+#main {
+    margin: 15px 0;
+}
+
+#main .item-type {
+    margin-bottom: 10px;
+    /*保持所有品类都保留下来*/
+    overflow: hidden;
+}
+
+/*顶部标题*/
+#main .item-type > h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#main h2 a {
+    display: inline-block;
+    font-size: 14px;
+    background: #000;
+    color: #fff;
+    margin-left: 30px;
+    width: 50px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+/*商品信息部分*/
+.item1 {
+    float: left;
+    width: 615px;
+    height: 380px;
+    background: #e8e8e8;
+}
+
+.item2, .item3 {
+    float: right;
+    width: 375px;
+    height: 185px;
+    background: #e8e8e8;
+}
+
+.item2 {
+    margin-bottom: 10px;
+}
+
+.item1 img {
+    float: right;
+    width: 230px;
+    margin-top: 60px;
+    margin-right: 50px;
+}
+
+.item1 .brand {
+    /*加粗*/
+    font: bold 24px "微软雅黑";
+    color: #333;
+    margin-top: 95px;
+    margin-left: 55px;
+}
+
+/*三个模块中共同的子标题，价格和详情*/
+.subtitle {
+    font: 14px youyuan;
+    color: #333;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.price {
+    font: bold 14px youyuan;
+    color: #6e5557;
+    margin-left: 30px;
+    margin-top: 15px;
+}
+
+.detail {
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 132px;
+    height: 24px;
+    background: #6e5557;
+    color: #fff;
+    font: bold 14px youyuan;
+    /*水平居中*/
+    text-align: center;
+    /*垂直居中*/
+    line-height: 24px;
+}
+
+.item2 img {
+    float: right;
+    width: 160px;
+    height:152px;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+.item3 img {
+    float: right;
+    width: 100px;
+    height:129px;
+    margin-top: 25px;
+    margin-right: 30px;
+}
+
+/*item1中边距特殊调整*/
+.item1 .subtitle {
+    margin-left: 60px;
+}
+
+.item1 .price, .item1 .detail{
+    margin-left: 120px;
+}
+/*7.footer*/
+#footer{
+    overflow:hidden;
+    margin:30px 0;
+}
+#footer div{
+    float:left;
+    margin:0 95px;
+}
+/*8.bottom*/
+#bottom{
+
+}
+#bottom .download{
+    float:right;
+    width:260px;
+}
+#bottom .download img,#bottom .download p{
+    float:right;
+    width:124px;
+    color:#333;
+    font-size:14px;
+    text-align:center;
+}
+#bottom .download .erweima{
+    width:100px;
+    margin-left:10px;
+}
+#bottom .download .android{
+    margin:5px 0;
+}
+#bottom .footerLogo{
+    width:168px;
+    border-radius:10px;
+}
+#bottom>img{
+    width:650px;
+}
+#bottom>p{
+    color:#333;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+session
+1.添加session
+request.session['key'] = value
+2.获取session
+request.session['key']
+request.session.get('key')

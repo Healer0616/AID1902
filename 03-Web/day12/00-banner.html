@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">-->
+    <style>
+        #banner{
+            width:1000px;
+            height:400px;
+            margin:0 auto;
+        }
+        img{
+            width:1000px;
+            height:400px;
+            display:none;
+        }
+        .first{
+            display:block;
+        }
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <img src="imgs/index_banner1.jpg" alt="" class="first">
+        <img src="imgs/index_banner2.jpg" alt="">
+        <img src="imgs/index_banner3.jpg" alt="">
+        <img src="imgs/index_banner4.jpg" alt="">
+        <img src="imgs/index_banner5.jpg" alt="">
+    </div>
+    <script>
+        //获取图片列表
+        var imgs = document.getElementsByTagName("img");
+        //定义下标
+        var index = 0;
+        //开启定时器
+        var timer = setInterval(autoPlay,1000);
+        //定时器方法
+        function autoPlay() {
+            //当前图片先隐藏
+            imgs[index].style.display = "none";
+
+            //获取下一张图片显示
+            index ++; //更新下标
+            if(index == imgs.length){ //防止越界
+                index = 0;
+            }
+            imgs[index].style.display = "block";
+        }
+        //鼠标移入，停止定时器
+        var banner = document.getElementsByTagName("div")[0];
+        banner.onmouseover = function () {
+            clearInterval(timer);
+        };
+        banner.onmouseout = function () {
+            //重启定时器
+            timer = setInterval(autoPlay,1000);
+        };
+
+    </script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>-->
+<!--<script src="bootstrap/js/bootstrap.min.js"></script>-->
+</body>
+</html>

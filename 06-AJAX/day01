@@ -1,0 +1,48 @@
+一.AJAX
+    1.什么是AJAX
+        Asynchronous Javascript And Xml
+        异步的        JS         和  xml
+
+        通过 JS 异步的向服务器发送请求并接收响应的数据是XML/JSON格式的
+
+        同步访问：
+            当客户端浏览器向服务器发送请求时，服务器在处理的过程中，浏览器只能等待
+        异步访问：
+            当客户端浏览器向服务器发送请求时，服务器在处理的过程中，浏览器可以做其他操作，
+            无需一直等待
+
+        AJAX优点：
+            1.异步 访问
+            2.局部 刷新
+
+        使用场合：
+            1.搜索建议
+            2.表单验证
+            3.前后端完全分离
+                (SPA) Single Page Application
+    2.AJAX核心对象 - 异步对象
+        1.异步对象 - XMLHttpRequest
+            由JS提供
+            简称为 xhr
+            代替浏览器向服务器端发送异步的请求并接收响应
+        2.创建异步对象
+            1.主流的异步对象是XMLHttpRequest类型的(IE7+,Chrome,Firefox,Safari,Opera)全部支持
+            2.IE低版本(IE7以及以下)不支持
+            XMLHttpRequest，需要使用 ActiveXObject() 来创建异步对象
+
+            判断浏览器的支持性：
+            if(window.XMLHttpRequest){
+                alert("支持xhr")
+            }else{
+                alert("支持ActiveXObject")
+            }
+
+            创建XMLHttpRequest：
+                var xhr = new XMLHttpRequest();
+            创建ActiveXObject：
+                var xhr = new ActiveXObject("Micorsoft.XMLHttp");
+
+            练习：
+                1.创建 common.js
+                2.声明一个函数 - createXhr()
+                3.在函数中根据浏览器的支持性创建对应的异步对象，并返回

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>比较运算</title>
+    <script>
+        //1.关系运算符
+        var r1 = "10" > "2";
+        console.log(r1);
+        var r2 = "15" > "151";
+        console.log(r2);
+
+        var r4 = "10" > 2; //10 > 2
+        console.log(r4);
+        var r6 = 100 > undefined;//100 > NaN  false
+        console.log(r6);
+
+        var r8 = "10" == 10;
+        var r9 = "10" === 10;
+        console.log(r8,r9);
+        var res1 = "10" != 10;//false
+        console.log(res1);
+
+        var a = 5;
+        var r = !a;
+        console.log(r);
+
+        var res2 = !3 > 5; //false
+        var res3 = !(3 > 5); //true
+        console.log(res2,res3);
+
+        // //&&运算的优先级高于||
+        // // var year = 2000;
+        // //prompt()点击确定，会返回输入框中的内容（string），点击取消，返回null
+        // // var a = year%400==0 || year%4==0 && year%100 != 0;
+        // var year = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+        // // var year = prompt("请输入年份，判断是否为闰年");
+        // console.log(year,typeof year);
+
+        //位运算
+        var r1 = 3 & 5;
+        console.log(r1);
+
+        //三目运算符
+        var money = 1000;
+        var res = money>=1000 ? "存款" : "余额";
+        console.log(res);
+        //嵌套三目运算
+        // // var score = 79;
+        // var score = prompt("成绩");
+        // var res2 = score>=90 ? "A" : score>=80 ? "B" : "C";
+        // console.log(res2);
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

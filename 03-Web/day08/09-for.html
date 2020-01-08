@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        for(var i=1;i<101;i++){
+            if(i == 3){
+                // break;
+                continue;
+            }
+            console.log(i)
+        }
+
+        var sum=0;
+        for(var i=1;i<101;i++){
+            sum += i;
+        }
+        console.log(sum);
+
+        for(var i=1;i<101;i++){
+            if(i % 3 == 0){
+                console.log(i)
+            }
+        }
+
+        //循环接收输入
+        var input;
+        // while(input != "exit"){
+        //     var input = prompt("");
+        //     console.log(input);
+        // }
+
+        while(true){
+            input = prompt("");
+            if(input == "exit"){
+                break;
+            }
+            console.log(input);
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

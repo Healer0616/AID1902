@@ -1,0 +1,126 @@
+一.网络请求
+    1.利用网络通信协议实现前后端数据交互，常用的网络通信协议：HTTP(s)，规定数据的传输格式
+    2.请求
+        1）请求消息：客户端向服务端发送的消息
+        2）组成：
+            1.请求起始行
+                协议，请求方式（GET/POST），资源路径
+            2.请求消息头
+                使用key:value字典的方式存储相关的信息
+            3.请求主体
+                GET请求如果携带数据，以参数的形式拼在URL后面（?key1=value1&key2=value）
+                只有post方式才会有请求主体
+    3.响应
+        1）响应消息：服务器接收请求并处理之后，返回给客户端的消息（数据）
+        2）组成：
+            1.响应起始行
+                协议，响应状态码，原因短句
+                响应状态码：
+                    2xx
+                        200 正确接收到请求并已作出处理
+                    3xx
+                        301 永久重定向
+                        302 临时重定向
+                        304 Not Modifed请求资源未发生改动，重定向至缓存中请求
+                    4xx
+                        400 Bad Request（错误请求）
+                        403 禁止访问
+                        404 请求的资源不存在
+                        405 请求方式不被允许
+                    5xx
+                        500 服务器内部错误
+                        502 网关错误
+            2.响应消息头
+                描述响应回来的数据
+                以key:value存储
+            3.响应主体
+                保存响应数据
+
+二.Flask中的请求与响应
+    1.请求对象request
+        1）在request对象中封装了所有跟当前请求相关的信息
+        2）使用：
+            引入from flask import request
+            使用：在视图函数中获取request对象内部的信息
+        3）request对象常用属性
+            scheme：获取此次请求使用的协议
+            method：获取此次请求方式（GET/POST），默认为GET
+            args：获取GET方式提交的数据
+            form：获取POST方式提交的数据
+            cookies：获取浏览器cookies中保存的数据
+            files：获取上传的文件
+            path：获取请求的资源路径（不带参数）
+            full_path：获取请求的资源路径
+            url：获取完整的请求地址
+            headers：获取请求消息头，使用key:value保存相关信息
+        4）获取请求中的数据
+            1.获取GET请求中的数据
+                1）request.args['key']
+                2）request.args.get('key','默认值')
+                3）request.args.getlist('key')
+                    适用于一个key对应多个值的情况（复选框）
+                注：get当时如果未携带数据，在视图函数中直接读取request.args['']数据，报400，报错
+            2.获取POST请求中的数据
+                request.form获取数据字典
+                1）request.form['key']
+                2）request.form.get('key')
+                3）request.form.getlist('key')
+                注：post方式即使未携带数据，直接获取字典中的值，返回为空
+        5）页面重定向
+            由服务器端通知浏览器重新向新的地址发送请求
+            使用：
+                引入redirect
+                使用函数redirect('重定向地址')
+                视图函数中返回
+                    return redirect('重定向地址')
+            练习：
+                注册博客登录和注册，登录页面中点击提交，跳转回首页
+        6）页面源
+            当前的请求是从哪一个源地址发起的
+            保存在请求消息头中("Referer":"")
+                # 从请求消息头中获取源地址(不一定有值)
+                if "Referer" in request.headers:
+                    print(request.headers['Referer'])
+        7）文件上传
+            1.使用表单控件type="file"向服务器发送文件，因为文件，图片，
+              音视频等都是二进制数据，必须设置表单的提交方式和编码类型
+                <form action="" method="post" enctype="multipart/form-data">
+            2.服务器端使用request.files获取上传的文件,返回字典
+                ImmutableMultiDict([('uimg', <FileStorage: 'img-97d2393969363960a2f21c3e9d6a4b41.jpg' ('image/jpeg')>)])
+                例：
+                    f = request.files["key"]
+                    # 将文件保存至指定的文件夹下
+                    f.save(保存路径)
+
+
+
+    2.响应对象response
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

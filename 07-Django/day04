@@ -1,0 +1,202 @@
+先删表删文件
+生成中间文件python3 manage.py makemigrations
+回滚python3 manage.py migrate --fake app zero
+提交python3 manage.py migrate
+
+
+为已经建好的表结构添加新字段时需要指定默认值
+
+
+In [3]: Author.objects.create(name='老王',age=30,isActive=False)
+Out[3]: <Author: 4.老王>
+
+In [4]: Author.objects.filter(isActive=True)
+Out[4]: <QuerySet [<Author: 1.老舍>, <Author: 2.巴金>, <Author: 3.周树人>]>
+
+In [5]: Author.objects.filter(id=1,isActive=True)
+Out[5]: <QuerySet [<Author: 1.老舍>]>
+多个条件用,分开 在数据库中相当and
+
+查询谓词
+语法: xxx.filter(属性__查询谓词=值)
+1.__exact:等值匹配
+In [7]: Author.objects.filter(id__exact=1)
+2.__gt:大于指定值
+In [8]: Author.objects.filter(id__gt=1)
+  __gte:大于等于
+3.__lt:小于指定值
+In [9]: Author.objects.filter(id__lt=3)
+  __lte:小于等于
+
+4.__contains:包含指定值
+In [12]: Author.objects.filter(name__contains="老")
+5.__startswith:以指定内容开头
+In [18]: Author.objects.filter(name__startswith="周")
+6.__endswith:以指定内容结尾
+In [17]: Author.objects.filter(name__endswith="人")
+
+7.__in:查找数据在指定范围内
+In [21]: Author.objects.filter(age__in=[30,40,50,60,70])
+8.__range:查找在指定区间内的(包含起始和结尾)
+In [22]: Author.objects.filter(age__range=(30,70))
+
+练习:
+查询age 大于 65的作者
+查询姓巴的作者
+查询作者邮箱包含126的
+
+不等条件的筛选
+exclude(条件)
+Author.objects.exclude(isActive=True)
+Author.objects.exclude(age__gt=65)
+
+聚合查询
+聚合函数 from django.db.models import Sum, Avg, Count, Max, Min
+
+1.不带分组
+语法:aggregate()
+aggregate(名=聚合函数('列'))
+
+通过聚合函数Sum求所有作者的年龄age的和
+In [41]: Author.objects.aggregate(age__Sum=Sum('age'))
+
+练习：求作者的平均年龄
+In [43]: Author.objects.aggregate(Avg('age'))
+名字可以不写 默认命名为'字段__聚合函数名' 如 'age__Avg'
+
+2.带分组
+语法:Author.objects.values('分组名').annotate(名=聚合函数('列')).filter(条件)
+
+修改
+1.查
+obj = Author.objects.get(id=3)
+2.改
+obj.email = "shuren@163.com"
+3.保存
+obj.save()
+
+修改QuerySet
+直接调用QuerySet的update(属性=值) 实现批量修改
+Author.objects.all().update(isActive=True)
+
+删除
+delete()
+删除单个对象
+Author.objects.get(id=4).delete()
+删除QuerySet
+Author.objects.filter(isActive=False).delete()
+
+
+F查询F()
+
+In [3]: laoshe = Author.objects.get(name="老舍")
+
+In [4]: laoshe.name
+Out[4]: '老舍'
+
+In [5]: laoshe.age
+Out[5]: 68
+
+In [6]: laoshe.age += 2 # 使用python计算 放到内存中
+In [8]: laoshe.save() # 将结果更新到数据库
+
+In [9]: laoshe = Author.objects.get(name="老舍")
+In [10]: laoshe.age = F("age")+2
+当django遇到F()实例，覆盖原本的python运算符
+创建一个SQL表达式
+
+在使用F()保存值后 再次使用实例不会拿到新的值
+需要重新载入实例
+In [13]: laoshe = Author.objects.get(name="老舍")
+
+In [14]: laoshe.age
+Out[14]: 72
+
+
+Q查询 Q()
+实现数据库 or 的操作
+Q(条件1)|Q(条件2)
+Author.objects.filter(id=1,age__lt=60)
+Author.objects.filter(Q(id=1)|Q(age__lt=60))
+
+原生数据库操作方式
+1.查询
+raw(sql语句)
+In [18]: sql_str = "select * from index_author;"
+
+In [19]: Author.objects.raw(sql_str)[0]
+Out[19]: <Author: 1.老舍>
+
+2.增删改
+In [20]: from django.db import connection
+In [21]: with connection.cursor() as cursor:
+    ...:     cursor.execute('update index_author set isActive=0')
+将Author中所有作者的isActive改为False
+
+admin后台管理数据库
+创建一个超级管理员
+python3 manage.py createsuperuser
+用户名
+邮箱
+密码 最少8位 数字字母符号 1234.com
+确认密码
+
+访问后台管理界面
+127.0.0.1:8000/admin
+
+步骤
+1.在admin.py中注册模型
+from .models import  Author,Book,Publisher
+
+admin.site.register(Author)
+admin.site.register(Book)
+admin.site.register(Publisher)
+
+2.点击模型表查看内容
+3.使用图形界面添加内容
+4.可以在模型中定义__str__函数自定义显示样式
+
+添加管理器类 以列表的形式展示
+# 声明管理器类
+class AuthorManager(admin.ModelAdmin):
+    list_display = ['id', 'name', 'age', 'email', 'isActive']
+
+# 注册Author模型类时 与 管理器AuthorManager关联
+admin.site.register(Author, AuthorManager)
+
+为Author模型添加内嵌类
+class Author(models.Model):
+    name = models.CharField(max_length=20, unique=True, db_index=True)
+    age = models.IntegerField()
+    email = models.EmailField(null=True)
+    isActive = models.BooleanField(default=True)
+
+    def __str__(self):
+        return "{}.{}".format(self.id, self.name)
+
+    class Meta:
+        # 指定映射到数据库中的表名
+        db_table = 'author'
+        # 定义在后台界面的名称(单数)
+        verbose_name = 'author'
+        # 定义在后台界面的名称(复数)
+        verbose_name_plural = 'author'
+
+通过字段的verbose_name选项，修改后台界面的名称
+class Author(models.Model):
+    name = models.CharField(verbose_name='姓名',max_length=20, unique=True, db_index=True)
+    age = models.IntegerField(verbose_name='年龄')
+    email = models.EmailField(verbose_name='邮箱',null=True)
+    isActive = models.BooleanField(verbose_name='状态',default=True)
+
+
+
+
+
+
+
+
+
+
+
+

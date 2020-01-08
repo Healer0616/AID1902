@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">-->
+    <script>
+        //1.循环录入
+        function addData() {
+            var arr1 = [];
+            while (true) {
+                var input = prompt("请输入");
+                if (input == "exit") {
+                    break;
+                }
+                //arr[arr.length]=input;
+                arr1.push(input);
+            }
+            console.log(arr1);
+        }
+
+        // addData();
+
+        //2.排序
+        function sortASC() {
+            var arr = [34, 82, 9];
+            //比较前两个数
+            if (arr[0] > arr[1]) {
+                //交换
+                arr[0] = arr[0] ^ arr[1];
+                arr[1] = arr[0] ^ arr[1];
+                arr[0] = arr[0] ^ arr[1];
+            }
+            //比较后两个数
+            if (arr[1] > arr[2]) {
+                //交换
+                arr[1] = arr[1] ^ arr[2];
+                arr[2] = arr[1] ^ arr[2];
+                arr[1] = arr[1] ^ arr[2];
+            }
+            //第二个数可能发生变化，在此比较前两个数
+            if (arr[0] > arr[1]) {
+                //交换
+                arr[0] = arr[0] ^ arr[1];
+                arr[1] = arr[0] ^ arr[1];
+                arr[0] = arr[0] ^ arr[1];
+            }
+            console.log(arr);
+        }
+
+        // sortASC();
+
+        //3.查下标
+        function findIndex() {
+            var arr = [1, 2, 3, 4, 5, 7, 9, 65, 5, 2];
+            var input = prompt("请输入");
+            var index = -1;
+            //定义数组保存所有对应数据的下标
+            var indexArr = [];
+            for (i in arr) {
+                if (input == arr[i]) {
+                    index = i;
+                    indexArr.push(i);
+                    // break;
+                }
+            }
+            // if(index || index == 0) {
+            //
+            // } else {
+            //     console.log(-1)
+            // }
+            console.log(arr, index, indexArr);
+        }
+
+        // findIndex();
+
+        //4.十进制转二进制
+        function decode2Bin() {
+            var num = prompt("请输入数字");
+            var arr = [];
+            while (num != 0) {
+                arr.push(num % 2);
+                //获取整数商，参与下一次循环
+                num = parseInt(num / 2);
+            }
+            //余数倒序重排
+            arr.reverse();
+            //数组转字符串
+            var str = arr.join("");
+            console.log(str);
+        }
+
+        // decode2Bin();
+
+        //5.模拟验证码
+        function createCode(length) {
+            //数据源
+            var arr = ["a", "b", "y", "R", "I", "U", 6, 4, 8, 3, 9];
+            //随机取元素，拼接验证码
+            var code = "";
+            //i为循环次数
+            for (var i = 1; i <= length; i++) {
+                //随机下标
+                var index = parseInt(Math.random() * arr.length);
+                //拼接
+                code += arr[index];
+            }
+            return code;
+        }
+
+        function validate() {
+            //1.生成验证码
+            var code = createCode(4);
+            //2.提示输入
+            var input = prompt("验证码为："+ code);
+            //3.验证
+            if(code.toUpperCase() == input.toUpperCase()){
+                alert("正确");
+            }else{
+                alert("错误");
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+<button onclick="validate()">验证码</button>
+<!--<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>-->
+<!--<script src="bootstrap/js/bootstrap.min.js"></script>-->
+</body>
+</html>

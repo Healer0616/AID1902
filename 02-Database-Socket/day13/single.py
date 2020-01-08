@@ -1,0 +1,18 @@
+# from test import *
+# import time
+
+# t = time.time()
+
+# for i in range(10):
+#     count(1,1)
+
+# print("single cpu",time.time() - t)
+
+import time
+
+t = time.time()
+
+for i in range(10):
+    io()
+
+print("single cpu",time.time() - t)

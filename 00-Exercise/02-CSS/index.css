@@ -1,0 +1,18 @@
+/*
+注释
+*/
+p{color:red; font-size:48px}
+
+/*标签选择器*/
+/*h1 {*/
+/*    color:black;*/
+/*}*/
+
+/*id选择器*/
+#p1 {color:orange;}
+#p2 {color:deeppink;}
+
+/*类选择器*/
+.c1 {
+    color:yellow;
+}

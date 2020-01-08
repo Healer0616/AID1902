@@ -1,0 +1,141 @@
+一.xhr的成员
+    1.方法 - open()
+      作用：创建请求
+      语法：xhr.open(method,url,async)
+        method:请求方式，取值"get" 或 "post"
+        url:请求地址，字符串
+        async:是否采用异步的方式进行提交
+            true:异步
+            false:同步
+        示例：以异步的提交方式使用get请求方法向/01-server的地址发送请求
+            xhr.open("get","/01-server",true);
+    2.属性 - readyState
+        作用：表示xhr的请求状态。通过不同的状态值来表示xhr与服务器的交互情况
+            0：请求尚未初始化
+            1：已经与服务器建立连接
+            2：服务器端已接收请求
+            3：请求正在处理中
+            4：响应已完成
+    3.属性 - status
+        作用：服务器端的响应状态码
+            200：服务器正确处理所有请求并给出响应
+            404：请求资源不存在
+            500：服务器内部错误
+    4.属性 - responseText
+        作用：响应文本
+    5.事件 - onreadystatechange
+      作用：每当xhr的readyState值发生改变的时候都要自动触发的一个事件 - 回调函数
+      只有当readyState的值为4并且status的值为200的时候,就可以接收响应数据(responseText)
+			示例:
+				xhr.onreadystatechange=function(){
+					if(xhr.readyState==4 && xhr.status==200){
+					    正常的接收响应回来的内容了
+					    var resTet = xhr.responseText;
+					    //resTxt表示的就是响应回来的数据
+						console.log(xhr.responseText);
+					}
+				}
+    6.方法 - send()
+			作用:通知xhr向服务器端发送请求
+			语法:xhr.send(body)
+				body 为请求体
+				get 请求:body的值为 null
+					xhr.send(null)
+				post 请求:body为要提交的数据
+					xhr.send("请求数据")
+二.AJAX的操作步骤
+		1.GET请求
+			1.创建 xhr 对象
+			2.创建请求 - open()
+			3.设置回调函数 - onreadystatechange
+				判断状态并接收数据
+			4.发送请求 - send()
+
+			有请求参数:
+				请求地址后拼查询字符串
+				xhr.open('get','/01-server?k=v&k=v',true)
+
+			练习:
+				1.创建新的静态网页 - 02-get-params.html
+					一个文本框 - uname
+					一个按钮
+				2.点击按钮时发送ajax的get请求(异步)到02-server
+					将文本框uname中的值,带到服务器
+				3.在 02-server 处理程序中
+					接收传递过来的uname的值,拼接上 欢迎:xxx 再进行相应
+				4.将响应回来的数据放在div中进行显示
+        2.POST请求
+			1.请求数据放在 send() 中
+				... ...
+				xhr.open("post","xxxx",true)
+				... ...
+				xhr.send("参数名1=值1&参数名2=值2")
+				xhr.send("name=xxx&age=xxx");
+			2.Content-Type 消息头的设置
+				ajax post 请求中,默认会将 Content-Type 更改为 text/plain , 导致数据无法正常提交
+
+				解决方案:
+					将 Content-Type 消息头设置为
+						application/x-www-form-urlencoded
+					即可
+
+					创建请求之后,发送请求之前,增加:
+						xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+三.排错技巧
+    1.浏览器->开发者工具->网络
+        查看是否有请求产生
+        如果没有请求产生的话,查看 xhr.send() 是否正确
+    2.查看服务器端响应的状态码
+        开发者工具->网络->请求信息响应码
+        404 : 请求资源未找到
+            原因:请求地址 与 路由 不匹配
+                查找 open() 中的请求地址 或 服务器的路由
+        500 : 服务器端内部错误
+            原因:服务器端代码出错
+    3.请求存在,响应状态码为200
+        1.查看回调函数是否写错
+            xhr.onreadystatechage = function(){}
+        2.xhr.readyState 和 xhr.status 是否写错
+    4.观察浏览器的控制台上是否有错误信息
+
+
+四.JSON
+    1.JSO
+        JavaScript Object
+        JS对象的表示方式
+            1.使用{}表示一个对象
+            2.在{}中，使用key:value的格式来表示数据
+            3.如果value是字符串的话需要用引号引起来
+        示例：表示一个用户的信息(uname,uage,ugender)
+            var user = {
+                uname:"Teacher Qi",
+                uage:28,
+                ugender:"Male"
+            };
+    2.JSON
+        JavaScript Object Notation
+        采用JS对象的格式所描述出来的字符串
+
+
+
+
+
+Content-Type:application/x-www-form-urlencoded
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

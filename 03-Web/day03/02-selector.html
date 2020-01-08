@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择器权重</title>
+    <style>
+        .c2{
+            color:blue;
+        }
+        span{
+            color:red;
+        }
+        span{
+            color:green;
+        }
+        #d2{
+            color:orange;
+        }
+        div span{
+            color:black;
+        }
+        #d1 span{
+            color:cyan;
+        }
+        #d1 h1 span{
+            font-size:20px;
+        }
+        h1 span{
+            font-size:16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="d1" class="c1">
+        <h1>
+            <span id="d2" class="c2">文本</span>
+        </h1>
+    </div>
+</body>
+</html>

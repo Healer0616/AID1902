@@ -1,0 +1,149 @@
+1.AJAX
+	同步:
+	异步:
+2.AJAX 核心对象
+	XMLHttpRequest -> IE7+,...
+	ActiveXObject -> IE7,IE6,IE5.5
+3.xhr 的核心成员
+	1.open(method,url,async)
+	2.readyState : 0-4
+	3.status : 200,404,500,... ...
+	4.responseText :
+	5.onreadystatechange
+	6.send(body)
+	7.setRequestHeader()
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+4.使用 ajax 的步骤
+	1.GET请求
+		1.创建 xhr 对象
+		2.创建请求 - open()
+		3.设置回调函数 - onreadystatechange
+		4.发送请求 - send()
+
+		注:有请求参数,则将参数拼接到请求地址之后
+	2.POST请求
+		1.创建 xhr 对象
+		2.创建请求 - open()
+		3.设置回调函数 - onreadystatechange
+		4.设置请求消息头
+		5.发送请求 - send()
+
+		注:有请求参数,则将参数拼成字符串放在 send() 中
+===========================================================================
+1.JSON
+	1.什么是JSON
+		JSON : JavaScript Object Notation
+		       JS         对象   表示法
+				本质上就是按照JS的对象的格式来约束交互的数据的格式
+	2.JS对象的格式(JSON格式)
+		1.JSON表示单个对象
+			1.使用{}表示单个对象
+			2.在{}中使用key:value来表示属性(数据)
+			3.key必须使用""引起来
+			4.value如果是字符串的话,也必须使用""引起来
+			5.多对 key:value 之间使用 , 分隔
+			示例：
+			    var str = '{"uname":"lvze","uage":30}';
+		2.JSON表示数组
+			1.使用 [] 表示一个数组(多个对象)
+			2.数组中允许包含若干字符串或JSON对象
+				1.使用JSON数组来表示若干字符串
+					var arr = ["王老师","王夫人","李小超"];
+				2.使用JSON数组来表示若干对象
+					var arr = '[
+						{
+							"name":"王老师",
+							"age":37,
+							"gender":"男"
+						},
+						{
+							"name":"王夫人",
+							"age":48,
+							"gender":"Unknown",
+						},
+						{
+							"name":"李小超",
+							"age":28,
+							"gender":"男"
+						}
+					]';
+		3.使用jq的each()函数迭代数组
+			1.$arr.each()
+				$arr:jq中的数组
+				$("div") : 返回的就是jq的数组
+				$arr.each() 的语法:
+					$arr.each(function(i,obj){
+						i:迭代的元素的下标索引
+						obj:迭代出来的元素
+					});
+			2.$.each()
+				$ : 表示的就是 jQuery
+				$("#uname") --> jQuery("#uname")
+				语法:
+					$.each(arr,function(i,obj){
+						i:迭代的元素的下标索引
+						obj:迭代出来的元素
+					});
+
+					arr : 表示的是JS中的原生数组
+		4.JSON前后端的交互
+			1.解决思路
+				在后端将响应的数据构建成JSON格式的字符串
+				在前端将JSON格式的字符串解析成JS对象再取值
+			2.Python中JSON的处理
+				在Python中,是允许将字典,列表,元组直接转换成JSON格式的字符串
+
+				在Python中使用json对象,来完成格式的转换
+				import json
+				jsonStr = json.dumps(字典|元组|列表)
+				return jsonStr
+
+				注意:
+					使用 json.dumps 时,要保证字典|元组|列表中的内容也必须能被JSON序列化(Serializable)
+						允许被JSON序列化的内容:
+							1.字符串 - str
+							2.字典 - dict
+							3.元组 - tuple
+							4.列表 - list
+			3.前端中的JSON处理
+				由于在服务器端响应回来的数据时string,如果想当成JS对象或数组进行解析的话,则必须将string转换为JSON
+					在JS中:
+						JS对象=JSON.parse(JSON格式字符串);
+
+    3.JSON串转换为JS对象
+      在前端中
+        var JS对象 = JSON.parse(JSON串)
+
+    4.jq 对 ajax 的支持
+        1.$obj.load(url,data,callback);
+          $obj:通过jq选择器获取到的页面元素
+          url:请求地址
+          data:发送到服务器端的参数数据
+          callback:请求成功时的回调
+      2.$.get(url,data,callback,type)
+      3.$.ajax()
+        语法：$.ajax({请求设置对象})
+          请求设置对象中的属性：
+            1.url：字符串，表示异步请求的地址
+            2.type：字符串，表示请求方式，"get"或"post"
+            3.data：传递到服务器端的参数
+              1.字符串："key=value&key=value"
+              2.JS对象：{key:"value",key:"value"}
+            4.async：是否使用异步的方式发送请求
+              true:使用异步
+              false:使用同步
+            5.dataType：字符串，表示响应回来的数据的格式
+              1."html"
+              2."text"
+              3."xml"
+              4."json"
+              5."script"
+              6."jsonp"：跨域时使用
+            6.success：请求成功时的回调函数
+              success:function(data){
+                  data表示的是请求成功后的响应数据
+              }
+            7.error：请求失败时的回调函数
+            8.beforeSend：发送请求之前的回调函数
+              返回true：则正常发送ajax请求
+              返回false：则终止本次请求的发送

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">-->
+    <style>
+        #d1 {
+            color: red;
+        }
+
+        .c1 {
+            background: green;
+        }
+
+    </style>
+    <script src="index.js"></script>
+</head>
+<body>
+
+<h1>标题</h1>
+<h1 style="width:200px;border:1px solid red;">标题</h1>
+<script>
+    //获取元素节点
+    var elem1 = $("h1");
+    elem1.id = "d1";
+    elem1.className = "c1";
+
+    var elem2 = $("h1",1);
+    /*
+    统一设置行内样式
+    console.log(elem2.style);
+    elem2.style = "height:200px;background-color:pink;";
+     */
+    //修改已有样式
+    elem2.style.height = "200px";
+    elem2.style.backgroundColor = "pink";
+    elem2.style.textAlign = "center";
+    elem2.style.lineHeight = "200px";
+
+</script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>-->
+<!--<script src="bootstrap/js/bootstrap.min.js"></script>-->
+</body>
+</html>

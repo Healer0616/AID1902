@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.11.3.js"></script>
+    <script>
+        $(function () {
+            //文档加载完毕后执行
+            $("h1").on("click", function () {
+                // alert("h1被点击");
+                // alert($("h1").html());
+                //this表示事件的触发对象
+                //原生对象调用原生方法，不能混用
+                alert(this.innerHTML+"--"+$(this).html());
+            });
+            $("h1").bind("mouseover", function () {
+                console.log("mouseover");
+            });
+            $("h1").mouseout(function () {
+                console.log("mouseout");
+            });
+            // $("h1").html("哈哈");
+        })
+
+    </script>
+</head>
+<body>
+
+<h1>标题1</h1>
+<h1>标题2</h1>
+<h1>标题3</h1>
+
+</body>
+</html>

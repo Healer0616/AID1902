@@ -1,0 +1,169 @@
+Django中的模板
+1.什么是模板
+    html页面
+    提供一部分对设计者友好的语法 操作数据的呈现
+2.模板的配置
+
+创建项目
+django-admin startproject mywebsite2
+新建一个应用 cart
+cd mywebsite2
+python3 manage.py startapp cart
+生成数据库
+python3 manage.py migrate
+运行
+python3 manage.py runserver
+
+默认的模板文件夹 'templates'(自己创建目录)
+在mywebsite2中新建目录templates
+修改settings.py 将模板路径添加进去
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS':[],
+        # 添加模本路径
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
+使用模板
+1.在templates目录中创建index.html
+<h1>这是我的第一个模板页面</h1>
+2.设置对应的路由和视图函数
+访问127.0.0.1/cart/ 显示模板页面
+1.设置路由函数
+2.编写视图函数index() 内容pass
+3.加载模板
+    1.通过loader获取模板，通过HttpResponse编写views.py
+
+django 模板的语法 DTL
+1.变量
+模板中的语法：{{ 变量名 }}
+在视图中必须将变量放到字典中传递给模板
+dict = {
+    "变量名1":"值1",
+    "变量名2":"值2",
+}
+在cart/views.py中
+context = {"name": "shibw"}
+    return render(request, "index.html", context)
+<h1>{{ name }}</h1>
+
+在Django中允许作为变量传递给模板的类型有：
+字符串，数字，列表，元组，字典，函数，对象
+
+2.模板中的标签
+作用：将服务器端的功能嵌入到模板中
+语法：
+{% 标签 %}
+    ...
+{% 结束标签 %}
+
+练习 使用循环遍历元组和字典
+
+for 循环内置变量-forloop
+1.forloop.counter
+得到当前循环的次数 从1开始
+2.forloop.counter0
+得到当前循环的次数 从0开始
+3.forloop.first
+4.forloop.last
+5.for ... empty标签
+作用：如果可迭代对象的内容为空的话 显示empty标签的内容
+
+if标签
+{% if 条件 %}
+{% elif 条件 %}
+{% else %}
+{% endif %}
+
+Django模板的过滤器
+作用：对输出的变量的值进行筛选
+语法：
+{{ 变量|过滤器:参数值 }}
+
+add过滤器：将字符串和字母、整数链接
+<h3>{{ 1|add:2 }}</h3>       3
+<h3>{{ "3"|add:2 }}</h3>     5 字符串会转化为整数
+<h3>{{ "a"|add:2 }}</h3>     空
+
+cut过滤器：移除指定的字符串 后面的参数必须是字符串
+<h3>{{ "hello world"|cut:" " }}</h3> helloworld
+<h3>{{ "hello world"|cut:"o" }}</h3> hell wrld
+
+date过滤器:
+<h3>{{ time|date:"Y/m/d g:i:s" }}</h3>
+def filter_views(request):
+    time = datetime.now() # 获取当前时间
+    return render(request, "filter.html", locals())
+
+first/last过滤器：输出字符串/列表/元组的第一个/最后一个
+<h3>{{ "1234"|first }}</h3>
+<h3>{{ list|last }}</h3> 如果是列表或元组 需要先定义
+
+floatformat:将浮点数保留小数
+<h3>{{ 1.41|floatformat }}</h3>
+<h3>{{ 3.1415926|floatformat:2 }}</h3>
+<h3>{{ 3.545|floatformat:2 }}</h3>
+
+length:获取字符串、列表、元组长度
+length_is:判断字符串、列表、元组的长度是不是指定参数
+<h3>{{ list|length }}</h3>
+<h3>{{ list|length_is:5 }}</h3>
+
+default过滤器：如果变量的值为空或没有变量可以使用default提供的默认值
+<h3>{{ dict|default:"no dict" }}</h3>
+
+truncatechars过滤器:
+如果给定的字符串超过truncatechars会进行切割后面会拼...来作为省略号
+
+模板中的静态文件
+1.不能与服务器端做动态交互的文件都是静态文件
+如：图片，css，js，音视频，HTML文件
+2.静态文件配置
+STATIC_URL = "/static/" 静态文件访问路径
+通过这个路径可以访问静态文件
+/static/index.css
+只有静态文件路径还是不能使用静态文件，
+需要在settings.py中配置静态文件存储路径
+# 配置静态文件的存储路径
+STATICFILES_DIRS = [(os.path.join(
+    BASE_DIR, "static"
+))]
+
+访问静态文件
+在templates/新建load_static.html
+为模板文件配置路由和视图函数
+要求访问127.0.0.1:8000/cart/static显示模板
+
+通过{% static %}标签访问静态文件
+    1.加载static
+    {% load static %}
+    需要放到所有静态资源文件的上方 通常放到文件最上方
+    2.使用静态资源文件
+    语法：{% static "静态资源路径" %}
+
+模板的继承
+模板的继承可以使父模板的内容重用，
+子模板可以继承父模板的全部内容并且可以覆盖父模板的相应的内容
+
+在父模板中定义块标签
+{% block block_name %}
+定义模板块 此模板块可以被子模板继承，也可以被子模板中同名的块覆盖
+{% endblock block_name %}
+
+新建模板/templates/base_html.html
+为base_html.html配置路由和视图函数
+
+重写覆盖的规则
+1.不重写 按照父模板内容显示
+2.重写 按照重写内容显示
+
+注意 模板继承时 服务器端动态数据无法继承
+
+url反向解析
+url()的name关键字参数
+url(regex,views,kwargs,name="别名")
+
+
+
+
+

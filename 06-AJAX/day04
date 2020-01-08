@@ -1,0 +1,87 @@
+1.JQUERY AJAX
+	1.load()
+	2.$.get(url,data,callback,type)
+	3.$.post(url,data,callback,type)
+	4.$.ajax()
+		语法:$.ajax(url[,settings]);
+		推荐语法:$.ajax([settings]);
+			settings:本次ajax请求需要的所有的参数,值为 JS对象
+			settings中常用的设置参数如下：
+				1.url : 字符串,表示异步请求的地址
+				2.type : 字符串,表示的是请求方式,get 或 post
+				3.data : 传递到服务器端的参数
+					1.可以是字符串 : "name1=value1&name2=value2"
+					2.可以是JS对象 :
+						{
+							name1:"value1",
+							name2:"value2"
+						}
+				4.async : 使用异步还是同步的方式发送请求
+					true : 使用异步的方式
+					false : 使用同步的方式
+				5.dataType : 字符串,表示的是响应回来的数据的格式
+					1.'html'
+					2.'xml'
+					3.'text'
+					4.'script'
+					5.'json' : 响应回来的数据时JSON类型的
+					6.'jsonp' : 跨域的时候使用
+				6.success : 请求和响应成功后的回调函数
+					function(data){
+						data表示的是响应回来的数据
+					}
+				7.error : 请求或响应失败时的回调函数
+				8.beforeSend : 发送请求之前执行的回调函数
+					如果该函数中return false 的话则终止请求的发送
+2.跨域(Cross Domain)
+	1.什么是跨域
+		HTTP协议中有一个策略 - 同源策略
+		在HTTP协议中,必须是"同源"地址才能相互发送异步请求，非同源是被拒绝的(script 和 img 除外)
+		同源：多个地址中，具备相同协议，相同域名，相同端口的地址被视为是"同源"
+
+		http://www.tedu.cn/a.html
+		http://www.tedu.cn/b
+		以上地址是“同源”
+
+		http://www.tedu.cn/a.html
+		https://www.tedu.cn/b
+		以上地址时"非同源"
+
+		http://localhost:5000/a.html
+		http://127.0.0.1:5000/b
+		以上地址是"非同源"
+	2.解决方案
+		1.练习
+			1.访问路径:http://localhost:5000/13-cd
+				该模板中包含一个 按钮 ，向下方地址发送请求
+			2.请求路径:http://127.0.0.1:5000/13-server
+				在 13-server 中，查询user中的所有的信息反馈给前端，并显示在 控制台上
+	3.jquery 的跨域支持
+		jsonp : json with padding
+
+		语法1:
+			$.ajax({
+				url:'xxx',
+				type:'get',
+				dataType:'jsonp',
+				success:function(data){
+					data就是跨域请求回来的数据，JSON格式的
+				}
+			});
+		语法2:
+			$.ajax({
+				url:'xxx',
+				type:'get',
+				dataType:'jsonp',
+				jsonp:'callback', //定义了callback参数名
+				jsonpCallback:'xxx'//定义了跨域的回调函数名
+			});
+
+
+http://127.0.0.1:5000/14-server?callback=showMsg
+
+
+def xxxx():
+	cb = request.args['callback']
+	jsonStr = json.dumps(list)
+	return cb+"("+jsonStr+")"

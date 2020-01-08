@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.11.3.js"></script>
+</head>
+<body>
+<p>段落标签</p>
+<p>段落标签</p>
+<p>段落标签</p>
+<p>段落标签</p>
+<p>段落标签</p>
+<p>段落标签</p>
+<p>段落标签</p>
+<p>段落标签</p>
+<button onclick="first()">:first</button>
+<button onclick="last()">:last</button>
+
+<button onclick="even()">:even</button>
+<button onclick="odd()">:odd</button>
+
+<button onclick="eq()">:eq</button>
+<button onclick="gt()">:gt</button>
+<button onclick="lt()">:lt</button>
+
+<script>
+    //否定筛选
+    $("p:not(:eq(5))").css("color","cyan");
+
+    function first() {
+        $("p:first").css("color","red");
+    }
+    function last() {
+        $("p:last").css("color","green");
+    }
+
+    function even() {
+        $("p:even").css("color","pink");
+    }
+    function odd() {
+        $("p:odd").css("color","blue");
+    }
+
+    function eq() {
+        $("p:eq(5)").css("background","blue");
+    }
+    function gt() {
+        $("p:gt(5)").css("background","green");
+    }
+    function lt() {
+        $("p:lt(5)").css("background","pink");
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>操作符</title>
+    <script>
+
+        //1.自增，自减运算符
+        var a = 10;
+        a++;
+        ++a;
+        console.log(a);
+        var b = "10";
+        b += 1;
+        console.log(b);
+        //++包含自动类型转换，在自身number值的基础上+1
+        b++;
+        console.log(b);
+
+        var c = 10;
+        var r1 = c++;
+        console.log(r1,c);
+        var r2 = ++c;
+        console.log(r2,c);
+        var d = 5;
+        var r3 = d++;//r3=5;d=6
+        console.log(r3,d);
+        var r4 = ++d;//r4=7;d=7
+        console.log(r4,d);
+
+        var n = 5;
+        var r = n++ + ++n + n++ + ++n + n;
+        console.log(r,n);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

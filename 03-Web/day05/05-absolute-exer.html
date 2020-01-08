@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #main{
+            width:990px;
+            margin:0 auto;
+            overflow:hidden;
+        }
+        /*左列*/
+        .left{
+            width:500px;
+            float:left;
+            position:relative;
+        }
+        .left a{
+            text-decoration:none;
+            position:absolute;
+            bottom:20px;
+            /*参照物对应的属性值计算偏移量*/
+            left:50%;
+            margin-left:-75px;
+            width:150px;
+            height:45px;
+            border:1px solid #64a131;
+            /*文本水平居中*/
+            text-align:center;
+            /*文本垂直居中*/
+            line-height:45px;
+            /*圆角半径弧度*/
+            border-radius:5px;
+            /*字体大小*/
+            font-size:24px;
+        }
+        .img{
+            width:500px;
+            height:400px;
+            background:pink;
+        }
+        /*右列*/
+        form{
+            float:right;
+        }
+        input{
+            width:350px;
+            height:50px;
+            font-size:20px;
+            margin:10px;
+            float:right;
+        }
+        span{
+            font-size:20px;
+            margin:10px;
+        }
+        .form-line{
+            width:450px;
+            height:400px;
+            background:orange;
+        }
+        #phone{
+            position:relative;
+            top:50px;
+        }
+        #num{
+            position:relative;
+            top:100px;
+            left:20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <p>会员登录</p>
+        <div class="left">
+            <div class="img"></div>
+            <a href="">会员注册></a>
+        </div>
+        <form action="" method="" enctype="">
+           <div class="form-line">
+               <p></p>
+               <span id="phone">手机号</span>
+               <input type="text" name="" placeholder="" maxlength=""><br>
+               <span id="num">密码</span>
+               <input type="password" name="" placeholder="请输入6-20位号码字符" maxlength="">
+               <input type="checkbox" name="">
+           </div>
+        </form>
+    </div>
+</body>
+</html>

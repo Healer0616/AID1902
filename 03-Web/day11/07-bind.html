@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">-->
+    <script>
+        function show() {
+            alert("按钮被点击");
+
+            //局部函数只能在当前作用域中访问
+            function f1() {
+
+            }
+        }
+
+    </script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+    </style>
+    <script src="index.js"></script>
+</head>
+<body>
+<button onclick="show()">点击</button>
+<div></div>
+<script>
+    //获取元素节点
+    var div = $("div");
+    //动态绑定事件
+    div.onmouseover = function () {
+        console.log("鼠标移入");
+    };
+    div.onmousemove = function () {
+        console.log("鼠标移动");
+    };
+    div.onmouseout = function () {
+        console.log("鼠标移出");
+    };
+
+</script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>-->
+<!--<script src="bootstrap/js/bootstrap.min.js"></script>-->
+</body>
+</html>

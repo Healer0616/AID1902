@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        //嵌套三目运算
+        // // var score = 79;
+        // var score = prompt("成绩");
+        // var res2 = score>=90 ? "A" : score>=80 ? "B" : "C";
+        // console.log(res2);
+
+        var h = prompt("输入身高");
+        var w = prompt("输入体重");
+        var bmi = w / (h * h);
+        //保留两位小数
+        bmi = bmi.toFixed(2);
+        //判断范围
+        var res3 = bmi>=23.9 ? "月半" : bmi>=18.5 ? "完美" : "柴";
+        console.log(bmi,res3,typeof bmi);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,189 @@
+django模型
+ORM
+三大特征
+1.类 到 表的映射
+2.数据类型的映射
+3.关系的映射
+
+
+修改settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'webDB',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+在项目的__init__.py中 添加 偏移pymysql引擎的支持
+import pymysql
+pymysql.install_as_MySQLdb()
+
+在项目中生成数据库
+>>>python3 manage.py migrate
+
+去mysql中查看数据库中的表
+mysql>use webDB
+mysql>show tables;
+
+在项目中创建新的应用student
+将应用添加到项目中
+
+CharField:字段类型 xxxField()
+
+数据库迁移命令
+>>>python3 manage.py makemigrations
+作用：
+将每个应用下的models.py的文件生成一个中间文件，并且保存在应用的migrateions中
+
+>>>python3 manage.py migrate
+作用：
+将每个应用下的migrateions目录中的中间文件同步到数据库
+
+FIELD_TYPE
+字段类型
+1.CharField()
+数据类型varchar
+注意必须要指定max_length=xx
+
+2.IntegerField()
+数据库类型int
+
+3.BooleanField()
+编程语言中 用True或False表示值
+在数据库中用1或0来表示值
+数据库类型 tinyint
+
+4.DateField()
+数据库类型：date
+表示日期
+
+5.DateTimeField()
+数据库类型：datetime
+表示日期时间
+
+6.FloatField()
+数据库类型：float
+
+
+7.ImageField()
+在数据库中保存图片的路径
+stu_img = models.ImageField(upload_to = "static/images")
+upload_to 指定图片上传的路径，在后台上传时会自动保存到指定路径下
+
+8.EmailField()
+数据库类型 varchar
+stu_email = models.EmailField()
+
+9.TextField()
+表示大量数据
+数据库类型 text
+
+10.DecimalField()
+表示小数
+数据库类型decimal
+stu_eyes = models.DecimalField()
+
+11.URLField()
+编程语言表示字符串
+数据库类型 varchar
+
+字段的选项
+1.primary_key
+如果设置primary_key=True 表示该列为主键
+2.null
+如果设置null=True 表示该列值可以为空
+默认是False
+3.default
+设置该列的默认值
+4.db_index
+如果db_index=True,表示该列增加索引
+5.unique
+如果unique=True，表示该列的值唯一
+6.db_column
+指定列的名称，如果不指定采用属性名作为列名
+
+修改Classroom的name属性
+修改name属性
+要求长度不超过10个字符，必须是唯一的，不能为空添加索引
+
+1.将student应用的迁移文件回滚到初始状态
+>>>python3 manage.py migrate --fake student zero
+2.将数据库中原有的表删除
+
+通过指令将数据库导出models
+python3 manage.py inspectdb > xxx.py
+
+数据的CRUD
+>>>python3 manage.py shell
+>>>from index.models import *
+1.增加数据 Create
+创建对象，调用对象的save()
+In [3]: obj = Author(name="老舍",age=68)
+
+In [4]: obj.email = "laoshe@163.com"
+
+In [5]: obj.save()
+
+2.使用字典创建对象，调用对象的save()
+In [6]: dict = {"name":"巴金","age":80}
+
+In [7]: obj = Author(**dict)
+
+In [8]: obj.save()
+
+3.Author.objects.create(属性=值)
+In [9]: obj = Author.objects.create(name="周树人",age=70)
+使用create() 返回一个创建好的对象
+
+2.查询数据
+In [6]: Author.objects.all()
+Out[6]: <QuerySet [<Author: Author object>, <Author: Author object>, <Author: Author object>]>
+对象默认的返回值为<Author: Author object>
+修改返回对象的结果
+class Author(models.Model):
+    name = models.CharField(max_length=20, unique=True, db_index=True)
+    age = models.IntegerField()
+    email = models.EmailField(null=True)
+
+    def __str__(self):
+        return "{}.{}".format(self.id, self.name)
+
+In [1]: from index.models import *
+
+In [2]: Author.objects.all()
+Out[2]: <QuerySet [<Author: 1.老舍>, <Author: 2.巴金>, <Author: 3.周树人>]>
+
+Author.objects.get(id=1)
+In [3]: Author.objects.get(id=1)
+Out[3]: <Author: 1.老舍>
+get()根据条件返回一个对象，如果对象大于一个报错
+
+Author.objects.filter()
+
+查询结果排序order_by(字段名)
+In [8]: Author.objects.order_by("age")
+Out[8]: <QuerySet [<Author: 1.老舍>, <Author: 3.周树人>, <Author: 2.巴金>]>
+
+In [9]: Author.objects.order_by("-age")
+Out[9]: <QuerySet [<Author: 2.巴金>, <Author: 3.周树人>, <Author: 1.老舍>]>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,3 @@
+StudentModel(2,"qq",22,88)
+StudentModel(3,"ww",23,99)
+StudentModel(4,"ls",33,88)
