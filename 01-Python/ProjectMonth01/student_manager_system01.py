@@ -17,11 +17,14 @@
 　　　　行为：显示菜单__display_menu 选择菜单__selest_menu_item
             输入学生信息__input_student输出学生信息__output_student
 """
+
+
 class StudentModel:
     """
        学生管理系统
     """
-    def __init__(self,id = 0,name = "",age = 0,score = 0):
+
+    def __init__(self, id=0, name="", age=0, score=0):
         """
 
         :param id: 编号
@@ -33,11 +36,13 @@ class StudentModel:
         self.name = name
         self.age = age
         self.score = score
+
     @property
     def id(self):
         return self.__id
+
     @id.setter
-    def id(self,value):
+    def id(self, value):
         self.__id = value
 
     @property
@@ -64,11 +69,12 @@ class StudentModel:
     def score(self, value):
         self.__score = value
 
-    def __str__(self):#给人看
+    def __str__(self):  # 给人看
         return "编号%d,姓名%s,年龄%d,成绩%d" % (self.id, self.name, self.age, self.score)
 
-    def __repr__(self):#给控制器看
+    def __repr__(self):  # 给控制器看
         return 'StudentModel(%d,"%s",%d,%d)' % (self.id, self.name, self.age, self.score)
+
 
 # s01 = StudentModel(1, "zs", 21, 99)
 # print(s01)
@@ -76,13 +82,14 @@ class StudentModel:
 # s02 = eval(repr(s01))
 # print(type(s02))
 
-    # def print_self(self):
-    #     print(self.id,self.name,self.age,self.score)
+# def print_self(self):
+#     print(self.id,self.name,self.age,self.score)
 
 class StudentManagerController:
     """
        学生核心逻辑控制器
     """
+
     def __init__(self):
         """
            创建学生管理器对象
@@ -94,12 +101,12 @@ class StudentManagerController:
         return self.__list_stu
 
     def __generate_id(self):
-        #生成编号策略:在最后一个学生编号基础上增加１
-        #　　　　　　　如果是第一个学生，则设置为１
-        #if语句的真值表达式
+        # 生成编号策略:在最后一个学生编号基础上增加１
+        # 　　　　　　　如果是第一个学生，则设置为１
+        # if语句的真值表达式
         return 1 if len(self.__list_stu) == 0 else self.__list_stu[-1].id + 1
 
-    def add_student(self,stu):
+    def add_student(self, stu):
         """
            添加学生对象
         :param stu: 需要添加的学生对象
@@ -109,7 +116,7 @@ class StudentManagerController:
         stu.id = self.__generate_id()
         self.__list_stu.append(stu)
 
-    def remove_student(self,id):
+    def remove_student(self, id):
         """
            移除学生
         :param id: 需要移除的学生编号
@@ -118,12 +125,12 @@ class StudentManagerController:
         for item in self.__list_stu:
             if item.id == id:
                 self.__list_stu.remove(item)
-                return True#表达删除成功
-        return False#表达删除失败
+                return True  # 表达删除成功
+        return False  # 表达删除失败
 
-    def update_student(self,stu_info):
-        #需要修改的学生编号：stu_info.id
-        #需要修改的学生信息：stu_info.name stu_info.age ...
+    def update_student(self, stu_info):
+        # 需要修改的学生编号：stu_info.id
+        # 需要修改的学生信息：stu_info.name stu_info.age ...
         for item in self.__list_stu:
             if item.id == stu_info.id:
                 item.name = stu_info.name
@@ -134,20 +141,21 @@ class StudentManagerController:
 
     def order_by_score(self):
         new_list = self.__list_stu[:]
-        for r in range(len(new_list)-1):
-            for c in range(r+1,len(new_list)):
+        for r in range(len(new_list) - 1):
+            for c in range(r + 1, len(new_list)):
                 if new_list[r].score < new_list[c].score:
-                    new_list[r],new_list[c] = new_list[c],new_list[r]
+                    new_list[r], new_list[c] = new_list[c], new_list[r]
         return new_list
+
 
 class StudentManagerView:
     """
         界面视图类
     """
+
     def __init__(self):
         # 创建学生管理控制器对象
         self.__controller = StudentManagerController()
-
 
     def __display_menu(self):
         """
@@ -170,7 +178,7 @@ class StudentManagerView:
         number = input("请输入选项：")
         if number == "1":
             self.__input_students()
-        elif number =="2":
+        elif number == "2":
             self.__output_student(self.__controller.list_stu)
         elif number == "3":
             self.__delete_student()
@@ -194,19 +202,19 @@ class StudentManagerView:
             stu.name = input("请输入姓名：")
             stu.age = int(input("请输入年龄："))
             stu.score = int(input("请输入成绩："))
-            #调用逻辑控制类的添加学生方法
+            # 调用逻辑控制类的添加学生方法
             self.__controller.add_student(stu)
-            if input("按y键继续")!= "y":
+            if input("按y键继续") != "y":
                 break
 
-    def __output_student(self,list_stu):
+    def __output_student(self, list_stu):
         """
            在控制台中输出所有学生信息
         :param list_stu: 需要显示的学生列表
         :return:
         """
         for item in list_stu:
-            print("%d | %s | %d | %d"%(item.id,item.name,item.age,item.score))
+            print("%d | %s | %d | %d" % (item.id, item.name, item.age, item.score))
 
     def __delete_student(self):
         """
@@ -243,6 +251,7 @@ class StudentManagerView:
         """
         result = self.__controller.order_by_score()
         self.__output_student(result)
+
 
 view = StudentManagerView()
 view.main()
