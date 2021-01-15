@@ -8,7 +8,7 @@
 import xlwt, xlrd
 import pymysql
 
-data = xlrd.open_workbook("/Users/healer/Desktop/stu.xlsx")
+data = xlrd.open_workbook("/Users/healer/Desktop/Code/aid1902/00-Exercise/Excel/saveExcel/stu.xlsx")
 sheet = data.sheet_by_index(0)  # 获取到工作表
 userList = []  # 构建用户列表
 

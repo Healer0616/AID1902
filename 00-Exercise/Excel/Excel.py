@@ -7,7 +7,7 @@
 
 import xlrd
 
-data = xlrd.open_workbook("/Users/healer/Desktop/test.xlsx")
+data = xlrd.open_workbook("/Users/healer/Desktop/Code/aid1902/00-Exercise/Excel/saveExcel/test.xlsx")
 # print(data.sheet_loaded(0))
 # print(data.sheets())  # 获取全部工作表
 # print(data.sheets()[0])  # 根据列表获取工作表

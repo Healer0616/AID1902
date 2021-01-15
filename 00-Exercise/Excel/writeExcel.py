@@ -35,5 +35,5 @@ for i, item in enumerate(data):
     for j, val in enumerate(item):
         ws.write(i + 2, j, val)
 # 保存
-wb.save("/Users/healer/Desktop/2021-货币.xlsx")
+wb.save("/Users/healer/Desktop/Code/aid1902/00-Exercise/Excel/saveExcel/2021-货币.xlsx")
 print("保存成功")
