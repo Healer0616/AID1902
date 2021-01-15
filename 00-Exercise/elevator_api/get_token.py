@@ -24,4 +24,4 @@ a_token = response.json()['data']['token']
 url_get = ("https://manage.i31.com/elevator/maintain/user/my/menu")
 headers = {"Content-Type": "application/json;charset=UTF-8", "token": a_token}
 r = requests.get(url_get, headers=headers)
-print(r.text)
+print(r.json())
